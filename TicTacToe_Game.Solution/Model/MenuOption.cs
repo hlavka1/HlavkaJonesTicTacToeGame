@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TicTacToe_Game
 {
+    ///
+    /// enum
+    ///
     public enum MenuOption
     {
         None,
