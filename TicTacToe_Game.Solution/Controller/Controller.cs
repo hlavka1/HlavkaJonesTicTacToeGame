@@ -67,6 +67,11 @@ namespace TicTacToe_Game
             _numberOfCatsGames = 0;
 
             //
+            // Initialize the menu
+            //
+            Menu gameMenu = new Menu();
+
+            //
             // Initialize game board status
             //
             _gameboard.InitializeGameboard();

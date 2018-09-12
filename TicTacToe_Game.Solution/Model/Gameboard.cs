@@ -12,7 +12,9 @@ namespace TicTacToe_Game
     public class Gameboard
     {
         #region ENUMS
-
+        /// <summary>
+        /// the game pieces
+        /// </summary>
         public enum PlayerPiece
         {
             X,
@@ -20,6 +22,9 @@ namespace TicTacToe_Game
             None
         }
 
+        /// <summary>
+        /// states of the Gameboard
+        /// </summary>
         public enum GameboardState
         {
             NewRound,
@@ -34,27 +39,45 @@ namespace TicTacToe_Game
 
         #region FIELDS
 
+        /// <summary>
+        /// defines the rows and columns in the Gameboard (square)
+        /// </summary>
         private const int MAX_NUM_OF_ROWS_COLUMNS = 4;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private PlayerPiece[,] _positionState;
 
+        /// <summary>
+        /// the current state of the Gameboard
+        /// </summary>
         private GameboardState _currentRoundState;
 
         #endregion
 
         #region PROPERTIES
 
+        /// <summary>
+        /// the number of rows and columns on the Gameboard
+        /// </summary>
         public int MaxNumOfRowsColumns
         {
             get { return MAX_NUM_OF_ROWS_COLUMNS; }
         }
 
+        /// <summary>
+        /// an array of PositionStates
+        /// </summary>
         public PlayerPiece[,] PositionState
         {
             get { return _positionState; }
             set { _positionState = value; }
         }
 
+        /// <summary>
+        /// thes current state of the Gameboard
+        /// </summary>
         public GameboardState CurrentRoundState
         {
             get { return _currentRoundState; }
@@ -64,6 +87,9 @@ namespace TicTacToe_Game
 
         #region CONSTRUCTORS
 
+        /// <summary>
+        /// default constructor for the Gameboard
+        /// </summary>
         public Gameboard()
         {
             _positionState = new PlayerPiece[MAX_NUM_OF_ROWS_COLUMNS, MAX_NUM_OF_ROWS_COLUMNS];
