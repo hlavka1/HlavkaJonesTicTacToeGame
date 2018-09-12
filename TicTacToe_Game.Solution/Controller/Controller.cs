@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace TicTacToe_Game
 {
@@ -87,6 +88,15 @@ namespace TicTacToe_Game
 
             while (_playingGame)
             {
+
+                //
+                // player chooses to quit
+                //
+                if (!_playingGame)
+                {
+                    QuitGame();
+                }
+
                 //
                 // Round loop
                 //
@@ -222,6 +232,27 @@ namespace TicTacToe_Game
                     _gameView.DisplayGamePositionChoiceNotAvailableScreen();
                 }
             }
+        }
+
+        /// <summary>
+        /// quit the game
+        /// </summary>
+        private void QuitGame()
+        {
+            _gameView.DisplaySplashScreen(false);
+            Timer timer = new Timer(1000);
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
+        }
+
+        /// <summary>
+        /// event handler for timer elapse
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Environment.Exit(1);
         }
 
         #endregion
