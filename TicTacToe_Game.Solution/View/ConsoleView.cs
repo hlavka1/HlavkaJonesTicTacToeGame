@@ -23,7 +23,6 @@ namespace TicTacToe_Game
             Console.WriteLine();
             ConsoleUtil.DisplayMessage("Thank you for play the game.");
 
-            System.Environment.Exit(1);
         }
 
         public enum ViewState
