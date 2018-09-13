@@ -85,6 +85,33 @@ namespace TicTacToe_Game
         }
 
         /// <summary>
+        /// Prompt the first player to choose their game token
+        /// </summary>
+        /// <returns>char</returns>
+        public char GetPlayerOne()
+        {
+            char playerChoice;
+            Dictionary<char, string> menu = new Dictionary<char, string>
+                {
+                    { 'O', "Player O" },
+                    { 'X', "Player X" },
+                    { 'R', "Random player selection" }
+                };
+
+            foreach (KeyValuePair<char, string> menuChoice in menu)
+            {
+                string formattedMenuChoice = ConsoleUtil.ToLabelFormat(menuChoice.Value.ToString()) + "\n";
+                //  Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
+                Console.Write($"{menuChoice.Key}. {formattedMenuChoice}");
+            }
+            ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
+
+            playerChoice = Convert.ToChar(keyPressedInfo.KeyChar.ToString().ToUpper());
+
+            return playerChoice;
+        }
+
+        /// <summary>
         /// configure the console window
         /// </summary>
         public void InitializeConsole()
