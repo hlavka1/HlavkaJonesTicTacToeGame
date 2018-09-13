@@ -126,7 +126,7 @@ namespace TicTacToe_Game
             Console.CursorVisible = false;
 
             Console.WriteLine();
-            ConsoleUtil.DisplayMessage("Thank you for play the game. Press any key to Exit.");
+            ConsoleUtil.DisplayMessage("We hope you had fun playing on our 4x4 Tic Tac Toe. Press any key to Exit.");
 
             Console.ReadKey();
 
@@ -138,7 +138,7 @@ namespace TicTacToe_Game
         /// </summary>
         public void DisplayTimedOutScreen()
         {
-            ConsoleUtil.HeaderText = "Session Timed Out!";
+            ConsoleUtil.HeaderText = "You have run out of time!";
             ConsoleUtil.DisplayReset();
 
             DisplayMessageBox("It appears your session has timed out.");
@@ -156,8 +156,9 @@ namespace TicTacToe_Game
             ConsoleUtil.HeaderText = "Maximum Attempts Reached!";
             ConsoleUtil.DisplayReset();
 
-            sb.Append(" It appears that you are having difficulty entering your");
-            sb.Append(" choice. Please refer to the instructions and play again.");
+            sb.Append(" It appears that you are having difficulty entering your choice");
+            sb.Append(" Really?!  Tic Tac Toe ins't the hard! again.");
+            sb.Append("Please refer to the instructions and play");
 
             DisplayMessageBox(sb.ToString());
 
@@ -194,20 +195,20 @@ namespace TicTacToe_Game
             ConsoleUtil.HeaderText = "The Tic-tac-toe Game";
             ConsoleUtil.DisplayReset();
 
-            ConsoleUtil.DisplayMessage("Written by John Velis");
+            ConsoleUtil.DisplayMessage("Written by Justina Hlavka & Shayne Jones");
             ConsoleUtil.DisplayMessage("Northwestern Michigan College");
+            ConsoleUtil.DisplayMessage("CIT 255 - Fall 2018");
             Console.WriteLine();
 
             sb.Clear();
             sb.AppendFormat("This application is designed to allow two players to play ");
-            sb.AppendFormat("a game of tic-tac-toe. The rules are the standard rules for the ");
-            sb.AppendFormat("game with each player taking a turn.");
+            sb.AppendFormat("a game of tic-tac-toe. The rules are standard, but the board is 4x4. To win, you still have to get 3 in a row. ");
+            sb.AppendFormat("Each player gets to take a turn.");
             ConsoleUtil.DisplayMessage(sb.ToString());
             Console.WriteLine();
 
-            sb.Clear();
-            sb.AppendFormat("Your first task will be to set up your account details.");
-            ConsoleUtil.DisplayMessage(sb.ToString());
+            ConsoleUtil.DisplayMessage("Press Q to quit at any time, if you get bored and don't to play the game anymore.");
+            Console.WriteLine();
 
             DisplayContinuePrompt();
         }
