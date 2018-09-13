@@ -21,7 +21,7 @@ namespace TicTacToe_Game
             Console.CursorVisible = false;
 
             Console.WriteLine();
-            ConsoleUtil.DisplayMessage("Thank you for play the game.");
+            ConsoleUtil.DisplayMessage("Thank you for playing our Tic Tac Toe game.");
 
         }
 
