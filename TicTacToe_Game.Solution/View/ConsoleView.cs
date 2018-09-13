@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
+
 namespace TicTacToe_Game
 {
     public class ConsoleView
@@ -24,6 +25,8 @@ namespace TicTacToe_Game
             ConsoleUtil.DisplayMessage("Thank you for playing our Tic Tac Toe game.");
 
         }
+
+
 
         public enum ViewState
         {
@@ -122,7 +125,20 @@ namespace TicTacToe_Game
             Console.BackgroundColor = ConsoleConfig.bodyBackgroundColor;
             Console.ForegroundColor = ConsoleConfig.bodyBackgroundColor;
 
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+
+            char ulCorner = '\u2554';
+            char llCorner = '\u255A';
+            char urCorner = '\u2557';
+            char lrCorner = '\u255D';
+            char vertical = '\u2551';
+            char horizontal = '\u2550';
+            char spade = '\u2660';
+
+            char heart = '\u2665';
+
             ConsoleUtil.WindowTitle = "The Tic-tac-toe Game";
+
         }
 
         /// <summary>
@@ -354,6 +370,8 @@ namespace TicTacToe_Game
             //
             // move cursor below header
             //
+
+
             Console.SetCursorPosition(0, GAMEBOARD_VERTICAL_LOCATION);
 
             Console.Write("\t\t\t        |---+---+---+---|\n");
