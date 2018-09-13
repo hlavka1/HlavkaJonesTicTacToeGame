@@ -62,7 +62,7 @@ namespace TicTacToe_Game
             // Initialize game variables
             //
             _playingGame = true;
-            _playingRound = true;
+            _playingRound = false;
             _roundNumber = 0;
             _playerONumberOfWins = 0;
             _playerXNumberOfWins = 0;
@@ -150,35 +150,35 @@ namespace TicTacToe_Game
         /// <summary>
         /// Set the game token of player one
         /// </summary>
-        //private void SetPlayerOne()
-        //{
-        //    switch (_gameView.GetPlayerOne())
-        //    {
-        //        case 'X':
-        //            _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
-        //            break;
-        //        case 'O':
-        //            _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerOTurn;
-        //            break;
-        //        case 'R':
-        //            Random rnd = new Random();
+        private void SetPlayerOne()
+        {
+            switch (_gameView.GetPlayerOne())
+            {
+                case 'X':
+                    _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
+                    break;
+                case 'O':
+                    _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerOTurn;
+                    break;
+                case 'R':
+                    Random rnd = new Random();
 
-        //            int nbr = rnd.Next(1, 100);
+                    int nbr = rnd.Next(1, 100);
 
-        //            if (nbr % 2 == 0)
-        //            {
-        //                _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerOTurn;
-        //            }
-        //            else
-        //            {
-        //                _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
-        //            }
-        //            break;
-        //        default:
-        //            _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
-        //            break;
-        //    }
-        //}
+                    if (nbr % 2 == 0)
+                    {
+                        _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerOTurn;
+                    }
+                    else
+                    {
+                        _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
+                    }
+                    break;
+                default:
+                    _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
+                    break;
+            }
+        }
 
 
         /// <summary>
