@@ -148,14 +148,14 @@ namespace TicTacToe_Game
         /// </summary>
         public void UpdateGameboardState()
         {
-            if (ThreeInARow(PlayerPiece.X))
+            if (FourInARow(PlayerPiece.X))
             {
                 _currentRoundState = GameboardState.PlayerXWin;
             }
             //
             // A player O has won
             //
-            else if (ThreeInARow(PlayerPiece.O))
+            else if (FourInARow(PlayerPiece.O))
             {
                 _currentRoundState = GameboardState.PlayerOWin;
             }
@@ -191,7 +191,7 @@ namespace TicTacToe_Game
         /// </summary>
         /// <param name="playerPieceToCheck">Player's game piece to check</param>
         /// <returns>true if a player has won</returns>
-        private bool ThreeInARow(PlayerPiece playerPieceToCheck)
+        private bool FourInARow(PlayerPiece playerPieceToCheck)
         {
             //
             // Check rows for player win

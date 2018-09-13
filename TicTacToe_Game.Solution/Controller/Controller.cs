@@ -45,6 +45,7 @@ namespace TicTacToe_Game
         public GameController()
         {
             InitializeGame();
+
             PlayGame();
         }
         
@@ -143,8 +144,42 @@ namespace TicTacToe_Game
                 }
             }
 
-            _gameView.DisplayClosingScreen();
+            QuitGame();
         }
+
+        /// <summary>
+        /// Set the game token of player one
+        /// </summary>
+        //private void SetPlayerOne()
+        //{
+        //    switch (_gameView.GetPlayerOne())
+        //    {
+        //        case 'X':
+        //            _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
+        //            break;
+        //        case 'O':
+        //            _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerOTurn;
+        //            break;
+        //        case 'R':
+        //            Random rnd = new Random();
+
+        //            int nbr = rnd.Next(1, 100);
+
+        //            if (nbr % 2 == 0)
+        //            {
+        //                _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerOTurn;
+        //            }
+        //            else
+        //            {
+        //                _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
+        //            }
+        //            break;
+        //        default:
+        //            _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
+        //            break;
+        //    }
+        //}
+
 
         /// <summary>
         /// manage each new task based on the current game state
@@ -160,6 +195,8 @@ namespace TicTacToe_Game
                     {
                         case Gameboard.GameboardState.NewRound:
                             _roundNumber++;
+
+                            //SetPlayerOne();
                             _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
                             break;
 
@@ -239,8 +276,8 @@ namespace TicTacToe_Game
         /// </summary>
         private void QuitGame()
         {
-            _gameView.DisplaySplashScreen(false);
-            Timer timer = new Timer(1000);
+            _gameView.DisplayExitScreen();
+            Timer timer = new Timer(3000);
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }
