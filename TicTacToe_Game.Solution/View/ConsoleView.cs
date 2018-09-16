@@ -144,8 +144,12 @@ namespace TicTacToe_Game
         /// <summary>
         /// display the Continue prompt
         /// </summary>
-        public void DisplayContinuePrompt()
+        /// <param name="allowQuit"></param>
+        /// <returns>bool</returns>
+        public bool DisplayContinuePrompt(bool allowQuit)
         {
+            bool userChoice = true;
+
             Console.CursorVisible = false;
 
             Console.WriteLine();
@@ -153,9 +157,19 @@ namespace TicTacToe_Game
             ConsoleUtil.DisplayMessage("Press any key to continue.");
             ConsoleKeyInfo response = Console.ReadKey();
 
+            if (allowQuit)
+            {
+               if (Convert.ToChar(response.KeyChar.ToString().ToUpper()) == 'Q')
+                {
+                    userChoice = false;
+                }
+            }
+
             Console.WriteLine();
 
             Console.CursorVisible = true;
+
+            return userChoice;
         }
 
         /// <summary>
@@ -185,7 +199,7 @@ namespace TicTacToe_Game
 
             DisplayMessageBox("It appears your session has timed out.");
 
-            DisplayContinuePrompt();
+            DisplayContinuePrompt(false);
         }
 
         /// <summary>
@@ -204,7 +218,7 @@ namespace TicTacToe_Game
 
             DisplayMessageBox(sb.ToString());
 
-            DisplayContinuePrompt();
+            DisplayContinuePrompt(false);
         }
 
 
@@ -224,13 +238,14 @@ namespace TicTacToe_Game
 
             DisplayMessageBox(sb.ToString());
 
-            DisplayContinuePrompt();
+            DisplayContinuePrompt(false);
         }
 
         /// <summary>
         /// display the welcome screen
         /// </summary>
-        public void DisplayWelcomeScreen()
+        /// <returns>bool</returns>
+        public bool DisplayWelcomeScreen()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -252,7 +267,7 @@ namespace TicTacToe_Game
             ConsoleUtil.DisplayMessage("Press Q to quit at any time, if you get bored and don't to play the game anymore.");
             Console.WriteLine();
 
-            DisplayContinuePrompt();
+             return DisplayContinuePrompt(true);
         }
 
         /// <summary>
@@ -265,7 +280,7 @@ namespace TicTacToe_Game
 
             ConsoleUtil.DisplayMessage("Thank you for using The Tic-tac-toe Game.");
 
-            DisplayContinuePrompt();
+            DisplayContinuePrompt(false);
         }
 
         public void DisplayGameArea()
@@ -291,7 +306,7 @@ namespace TicTacToe_Game
             ConsoleUtil.DisplayMessage("Rounds for Player O: " + playerOWins + " - " + String.Format("{0:P2}", playerOPercentageWins));
             ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
 
-            DisplayContinuePrompt();
+            DisplayContinuePrompt(false);
         }
 
         public bool DisplayNewRoundPrompt()
@@ -450,7 +465,7 @@ namespace TicTacToe_Game
                         "It appears that you have entered an incorrect response." +
                         " Please enter either \"yes\" or \"no\"."
                         );
-                    DisplayContinuePrompt();
+                    DisplayContinuePrompt(false);
                 }
             }
 
@@ -537,6 +552,67 @@ namespace TicTacToe_Game
             //
             CurrentViewState = ViewState.PlayerUsedMaxAttempts;
             return tempCoordinate;
+        }
+
+        /// <summary>
+        /// get a menu choice from the user
+        /// </summary>
+        /// <returns>MenuOption</returns>
+        public MenuOption GetMenuChoice(Menu menu)
+        {
+            MenuOption chooseOption = MenuOption.None;
+
+            //
+            // create an array of valid menu keys from menu dictionary
+            //
+            char[] validKeys = menu.MenuChoices.Keys.ToArray();
+
+            ///
+            /// validate key pressed as in MenuOption dictionary
+            ///
+            char keyPressed;
+            do
+            {
+                ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
+                keyPressed = keyPressedInfo.KeyChar;
+            } while (!validKeys.Contains(keyPressed));
+
+            chooseOption = menu.MenuChoices[keyPressed];
+            Console.CursorVisible = true;
+
+
+            return chooseOption;
+        }
+
+        /// <summary>
+        /// display the game rules
+        /// </summary>
+        public bool DisplayGameRules()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            ConsoleUtil.HeaderText = "The Tic-tac-toe Game Rules";
+            ConsoleUtil.DisplayReset();
+            Console.WriteLine();
+
+            sb.Clear();
+            sb.AppendFormat("Tic-tac-toe is a two-player game.");
+            sb.AppendFormat("This version of tic-tac-toe uses a 4-row, 4-column game board.");
+            sb.AppendFormat("Players take turns placing their game pieces on the board.");
+            sb.AppendFormat("The first player to place 4 pieces in a row, column, or diagonal, wins.");
+            ConsoleUtil.DisplayMessage(sb.ToString());
+            Console.WriteLine();
+
+            return DisplayContinuePrompt(false);
+        }
+
+        /// <summary>
+        /// display the save game screen
+        /// this is not yet implemented
+        /// </summary>
+        public void DisplaySaveGameScreen()
+        {
+            
         }
 
         #endregion

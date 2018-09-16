@@ -26,11 +26,13 @@ namespace TicTacToe_Game
         private int _numberOfCatsGames;
 
         //
-        // instantiate  a Gameboard object
+        // instantiate a Gameboard object
         // instantiate a GameView object and give it access to the Gameboard object
+        // instantiate a Menu object
         //
         private static Gameboard _gameboard = new Gameboard();
         private static ConsoleView _gameView = new ConsoleView(_gameboard);
+        private static Menu _gameMenu = new Menu();
 
         #endregion
 
@@ -44,9 +46,10 @@ namespace TicTacToe_Game
 
         public GameController()
         {
-            InitializeGame();
+            ManageApplicationLoop();
+            //InitializeGame();
 
-            PlayGame();
+            //PlayGame();
         }
         
         #endregion
@@ -69,16 +72,83 @@ namespace TicTacToe_Game
             _numberOfCatsGames = 0;
 
             //
-            // Initialize the menu
-            //
-            Menu gameMenu = new Menu();
-
-            //
             // Initialize game board status
             //
             _gameboard.InitializeGameboard();
         }
 
+        /// <summary>
+        /// method to manage the application setup and application loop
+        /// </summary>
+        private void ManageApplicationLoop()
+        {
+      
+            //
+            // display welcome screen
+            //
+            _playingGame = _gameView.DisplayWelcomeScreen();
+
+            //
+            // player chooses to quit
+            //
+            if (!_playingGame)
+            {
+                QuitGame();
+            }
+            else
+            {
+                //
+                // initialize the game
+                // 
+                InitializeGame();
+
+                //
+                // game loop
+                //
+                while (_playingGame)
+                {
+
+                    //
+                    // get next menu choice from player
+                    //
+                    MenuOption menuChoice = GetPlayerMenuChoice(_gameMenu);
+
+                    //
+                    // choose an action based on the player's menu choice
+                    //
+                    switch (menuChoice)
+                    {
+                        case MenuOption.None:
+                            break;
+                        case MenuOption.PlayNewRound:
+                            PlayGame();
+                            break;
+                        case MenuOption.ViewGameRules:
+                            _gameView.DisplayGameRules();
+                            break;
+                        case MenuOption.ViewCurrentGameResults:
+                            _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                            break;
+                        case MenuOption.ViewPastGameResultsScores:
+                            _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                            break;
+                        case MenuOption.SaveGameResults:
+                            _gameView.DisplaySaveGameScreen();
+                            break;
+                        case MenuOption.Quit:
+                            _playingGame = false;
+                            break;                        
+                        default:
+                            break;
+                    }
+                }
+
+                //
+                // close the application
+                //
+                QuitGame();
+            }
+        }
 
         /// <summary>
         /// Game Loop
@@ -290,6 +360,19 @@ namespace TicTacToe_Game
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Environment.Exit(1);
+        }
+
+        /// <summary>
+        /// returns a player action, based on the currentMenu variable
+        /// </summary>
+        /// <returns>PlayerAction</returns>
+        private MenuOption GetPlayerMenuChoice(Menu gameMenu)
+        {
+            MenuOption playerMenuChoice = MenuOption.None;
+
+            playerMenuChoice = _gameView.GetMenuChoice(gameMenu);
+
+            return playerMenuChoice;
         }
 
         #endregion
