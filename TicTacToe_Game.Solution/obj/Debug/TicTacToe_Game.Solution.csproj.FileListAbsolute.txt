@@ -31,3 +31,4 @@ C:\Users\Otto\source\repos\Tic_Tac_Toe_v2_Hlavka_Jones\TicTacToe_Game.Solution\b
 C:\Users\Otto\source\repos\Tic_Tac_Toe_v2_Hlavka_Jones\TicTacToe_Game.Solution\obj\Debug\TicTacToe_Game.Solution.csproj.CoreCompileInputs.cache
 C:\Users\Otto\source\repos\Tic_Tac_Toe_v2_Hlavka_Jones\TicTacToe_Game.Solution\obj\Debug\CodingActivity_TicTacToe_ConsoleGame.exe
 C:\Users\Otto\source\repos\Tic_Tac_Toe_v2_Hlavka_Jones\TicTacToe_Game.Solution\obj\Debug\CodingActivity_TicTacToe_ConsoleGame.pdb
+C:\Users\Otto\source\repos\Tic_Tac_Toe_v2_Hlavka_Jones\TicTacToe_Game.Solution\obj\Debug\TicTacToe_Game.Solution.csprojResolveAssemblyReference.cache

@@ -154,7 +154,7 @@ namespace TicTacToe_Game
         {
             bool userChoice = true;
 
-            Console.CursorVisible = false;
+            //Console.CursorVisible = false;
 
             Console.WriteLine();
 

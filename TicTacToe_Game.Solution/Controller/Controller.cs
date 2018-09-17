@@ -209,6 +209,7 @@ namespace TicTacToe_Game
                         _gameboard.InitializeGameboard();
                         _gameView.InitializeView();
                         _playingRound = true;
+                        PlayGame();
                     }
                     else
                     {
