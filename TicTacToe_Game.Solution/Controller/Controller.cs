@@ -346,8 +346,9 @@ namespace TicTacToe_Game
         /// </summary>
         private void QuitGame()
         {
+            _playingGame = false;
             _gameView.DisplayExitScreen();
-            Timer timer = new Timer(3000);
+            Timer timer = new Timer(1750);
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }
