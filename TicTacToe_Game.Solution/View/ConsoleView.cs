@@ -94,13 +94,17 @@ namespace TicTacToe_Game
         public char GetPlayerOne()
         {
             char playerChoice;
+
+            Console.Clear();
+
             Dictionary<char, string> menu = new Dictionary<char, string>
                 {
                     { 'O', "Player O" },
                     { 'X', "Player X" },
                     { 'R', "Random player selection" }
                 };
-
+            ConsoleUtil.HeaderText = "Player Selection";
+            Console.WriteLine("Choose which player will take the first turn. \n\n");
             foreach (KeyValuePair<char, string> menuChoice in menu)
             {
                 string formattedMenuChoice = ConsoleUtil.ToLabelFormat(menuChoice.Value.ToString()) + "\n";
@@ -213,8 +217,8 @@ namespace TicTacToe_Game
             ConsoleUtil.DisplayReset();
 
             sb.Append(" It appears that you are having difficulty entering your choice");
-            sb.Append(" Really?!  Tic Tac Toe ins't the hard! again.");
-            sb.Append("Please refer to the instructions and play");
+            sb.Append(" Really?!  Tic Tac Toe isn't this hard!   Try again.");
+            sb.Append("Please refer to the instructions and play.");
 
             DisplayMessageBox(sb.ToString());
 
@@ -259,12 +263,12 @@ namespace TicTacToe_Game
 
             sb.Clear();
             sb.AppendFormat("This application is designed to allow two players to play ");
-            sb.AppendFormat("a game of tic-tac-toe. The rules are standard, but the board is 4x4. To win, you still have to get 3 in a row. ");
+            sb.AppendFormat("a game of tic-tac-toe. The rules are standard, but the board is 4x4. To win, you have to get 4 in a row. ");
             sb.AppendFormat("Each player gets to take a turn.");
             ConsoleUtil.DisplayMessage(sb.ToString());
             Console.WriteLine();
 
-            ConsoleUtil.DisplayMessage("Press Q to quit at any time, if you get bored and don't to play the game anymore.");
+            ConsoleUtil.DisplayMessage("Press Q to quit at any time, if you get bored and don't want to play the game anymore.");
             Console.WriteLine();
 
              return DisplayContinuePrompt(true);
@@ -307,6 +311,8 @@ namespace TicTacToe_Game
             ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
 
             DisplayContinuePrompt(false);
+
+            Console.Clear();
         }
 
         public bool DisplayNewRoundPrompt()
@@ -562,6 +568,8 @@ namespace TicTacToe_Game
         {
             MenuOption chooseOption = MenuOption.None;
 
+            Console.CursorVisible = true;
+
             //
             // create an array of valid menu keys from menu dictionary
             //
@@ -571,10 +579,23 @@ namespace TicTacToe_Game
             /// validate key pressed as in MenuOption dictionary
             ///
             char keyPressed;
+
             do
             {
-                ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
-                keyPressed = keyPressedInfo.KeyChar;
+                DisplayMenu(menu);
+
+                ConsoleKeyInfo keyPressedInfo = Console.ReadKey(true);
+                keyPressed = Convert.ToChar(keyPressedInfo.KeyChar.ToString().ToUpper());
+                    
+                if (!validKeys.Contains(keyPressed))
+                {
+                    Console.WriteLine("\n\n");
+                    Console.WriteLine("   " + keyPressed.ToString() + " is not a valid menu choice.");
+
+                    DisplayContinuePrompt(false);
+                }
+
+
             } while (!validKeys.Contains(keyPressed));
 
             chooseOption = menu.MenuChoices[keyPressed];
@@ -584,10 +605,39 @@ namespace TicTacToe_Game
             return chooseOption;
         }
 
+        public void DisplayMenu(Menu menu)
+        {
+            Console.Clear(); 
+
+            //MenuOption chooseOption = MenuOption.None;
+
+            ConsoleUtil.HeaderText = "The Tic-tac-toe Main Menu";
+
+            Console.SetCursorPosition(0, MESSAGEBOX_VERTICAL_LOCATION);
+
+            //
+            // display menu choices
+            //
+            int topRow = 3;
+            foreach (KeyValuePair<char, MenuOption> menuChoice in menu.MenuChoices)
+            {
+                if (menuChoice.Value != MenuOption.None)
+                {
+                    string formatedMenuChoice = ConsoleUtil.ToLabelFormat(menuChoice.Value.ToString());
+                    Console.SetCursorPosition(MESSAGEBOX_VERTICAL_LOCATION + 3, topRow++);
+                    Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
+                }
+            }
+            Console.WriteLine();
+            //chooseOption = GetMenuChoice(menu);
+
+            //return chooseOption;
+        }
+
         /// <summary>
         /// display the game rules
         /// </summary>
-        public bool DisplayGameRules()
+        public void DisplayGameRules()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -596,14 +646,16 @@ namespace TicTacToe_Game
             Console.WriteLine();
 
             sb.Clear();
-            sb.AppendFormat("Tic-tac-toe is a two-player game.");
-            sb.AppendFormat("This version of tic-tac-toe uses a 4-row, 4-column game board.");
-            sb.AppendFormat("Players take turns placing their game pieces on the board.");
+            sb.AppendFormat("Tic-tac-toe is a two-player game.  ");
+            sb.AppendFormat("This version of tic-tac-toe uses a 4-row, 4-column game board.  ");
+            sb.AppendFormat("Players take turns placing their game pieces on the board.  ");
             sb.AppendFormat("The first player to place 4 pieces in a row, column, or diagonal, wins.");
             ConsoleUtil.DisplayMessage(sb.ToString());
             Console.WriteLine();
 
-            return DisplayContinuePrompt(false);
+            DisplayContinuePrompt(false);
+
+            Console.Clear();
         }
 
         /// <summary>

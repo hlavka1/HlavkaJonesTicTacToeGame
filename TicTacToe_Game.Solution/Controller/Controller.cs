@@ -47,7 +47,7 @@ namespace TicTacToe_Game
         public GameController()
         {
             ManageApplicationLoop();
-            //InitializeGame();
+            InitializeGame();
 
             //PlayGame();
         }
@@ -88,6 +88,8 @@ namespace TicTacToe_Game
             //
             _playingGame = _gameView.DisplayWelcomeScreen();
 
+            Console.Clear();
+
             //
             // player chooses to quit
             //
@@ -97,10 +99,6 @@ namespace TicTacToe_Game
             }
             else
             {
-                //
-                // initialize the game
-                // 
-                InitializeGame();
 
                 //
                 // game loop
@@ -121,6 +119,7 @@ namespace TicTacToe_Game
                         case MenuOption.None:
                             break;
                         case MenuOption.PlayNewRound:
+                            _playingRound = true;
                             PlayGame();
                             break;
                         case MenuOption.ViewGameRules:
@@ -155,23 +154,30 @@ namespace TicTacToe_Game
         /// </summary>
         public void PlayGame()
         {
-            _gameView.DisplayWelcomeScreen();
 
-            while (_playingGame)
+            //while (_playingGame)
+            //{
+
+            //    //
+            //    // player chooses to quit
+            //    //
+            //    if (!_playingGame)
+            //    {
+            //        QuitGame();
+            //    }
+
+            //
+            // initialize gameboard 
+            //
+            if (_roundNumber > 0)
             {
+                _gameboard.InitializeGameboard();
+            }
 
-                //
-                // player chooses to quit
-                //
-                if (!_playingGame)
-                {
-                    QuitGame();
-                }
-
-                //
-                // Round loop
-                //
-                while (_playingRound)
+            //
+            // Round loop
+            //
+            while (_playingRound)
                 {
                     //
                     // Perform the task associated with the current game and round state
@@ -204,17 +210,23 @@ namespace TicTacToe_Game
                         _gameView.InitializeView();
                         _playingRound = true;
                     }
+                    else
+                    {
+                    _playingRound = false;
+
+                    }
                 }
                 //
                 // Major user error recorded, end game
                 //
                 else
                 {
-                    _playingGame = false;
-                }
-            }
+                    _playingRound = false;
 
-            QuitGame();
+                }
+            //}
+
+            //QuitGame();
         }
 
         /// <summary>
@@ -266,8 +278,8 @@ namespace TicTacToe_Game
                         case Gameboard.GameboardState.NewRound:
                             _roundNumber++;
 
-                            //SetPlayerOne();
-                            _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
+                            SetPlayerOne();
+                           // _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
                             break;
 
                         case Gameboard.GameboardState.PlayerXTurn:
@@ -371,7 +383,7 @@ namespace TicTacToe_Game
         {
             MenuOption playerMenuChoice = MenuOption.None;
 
-            playerMenuChoice = _gameView.GetMenuChoice(gameMenu);
+            playerMenuChoice = _gameView.GetMenuChoice(gameMenu);// _gameView.DisplayMenu(gameMenu);
 
             return playerMenuChoice;
         }
