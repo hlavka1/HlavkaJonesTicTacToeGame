@@ -301,9 +301,10 @@ namespace TicTacToe_Game
             ConsoleUtil.HeaderText = "Current Game Status";
             ConsoleUtil.DisplayReset();
 
-            double playerXPercentageWins = (double)playerXWins / roundsPlayed;
-            double playerOPercentageWins = (double)playerOWins / roundsPlayed;
-            double percentageOfCatsGames = (double)catsGames / roundsPlayed;
+            double playerXPercentageWins = (roundsPlayed > 0) ? (double)playerXWins / roundsPlayed : 0;
+            double playerOPercentageWins = (roundsPlayed > 0) ? (double)playerOWins / roundsPlayed : 0;
+            double percentageOfCatsGames = (roundsPlayed > 0) ? (double)catsGames / roundsPlayed : 0; 
+            
 
             ConsoleUtil.DisplayMessage("Rounds Played: " + roundsPlayed);
             ConsoleUtil.DisplayMessage("Rounds for Player X: " + playerXWins + " - " + String.Format("{0:P2}", playerXPercentageWins));
