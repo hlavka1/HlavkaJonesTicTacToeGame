@@ -129,18 +129,7 @@ namespace TicTacToe_Game
             Console.BackgroundColor = ConsoleConfig.bodyBackgroundColor;
             Console.ForegroundColor = ConsoleConfig.bodyBackgroundColor;
 
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
-
-            char ulCorner = '\u2554';
-            char llCorner = '\u255A';
-            char urCorner = '\u2557';
-            char lrCorner = '\u255D';
-            char vertical = '\u2551';
-            char horizontal = '\u2550';
-            char spade = '\u2660';
-
-            char heart = '\u2665';
-
+            
             ConsoleUtil.WindowTitle = "The Tic-tac-toe Game";
 
         }
@@ -396,26 +385,49 @@ namespace TicTacToe_Game
 
             Console.SetCursorPosition(0, GAMEBOARD_VERTICAL_LOCATION);
 
-            Console.Write("\t\t\t        |---+---+---+---|\n");
+
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+
+            char ulCorner = '\u2554';
+            char llCorner = '\u255A';
+            char urCorner = '\u2557';
+            char lrCorner = '\u255D';
+            char vertical = '\u2551';
+            char horizontal = '\u2550';
+            char uTee = '\u2566';
+            char dTee = '\u2569';
+            char lTee = '\u2560';
+            char rTee = '\u2563';
+            char cTee = '\u256C';
+
+            Console.Write("\t\t\t        " + ulCorner+horizontal+horizontal+horizontal+uTee+horizontal+horizontal+horizontal+uTee+horizontal+horizontal+horizontal+uTee+horizontal+horizontal+horizontal+urCorner+"\n");
 
             for (int i = 0; i < 4; i++)
             {
-                Console.Write("\t\t\t        | ");
+                Console.Write("\t\t\t        " + vertical + " ");
 
                 for (int j = 0; j < 4; j++)
                 {
                     if (_gameboard.PositionState[i, j] == Gameboard.PlayerPiece.None)
                     {
-                        Console.Write(" " + " | ");
+                        Console.Write(" " + " " + vertical + " ");
                     }
                     else
                     {
-                        Console.Write(_gameboard.PositionState[i, j] + " | ");
+                        Console.Write(_gameboard.PositionState[i, j] + " " + vertical + " ");
                     }
 
                 }
 
-                Console.Write("\n\t\t\t        |---+---+---+---|\n");
+                if (i < 3)
+                {
+                    Console.Write("\n\t\t\t        " + lTee + horizontal + horizontal + horizontal + cTee + horizontal + horizontal + horizontal + cTee + horizontal + horizontal + horizontal + cTee + horizontal + horizontal + horizontal + rTee + "\n");
+                }
+                else
+                {
+                    Console.Write("\n\t\t\t        " + llCorner + horizontal + horizontal + horizontal + dTee + horizontal + horizontal + horizontal + dTee + horizontal + horizontal + horizontal + dTee + horizontal + horizontal + horizontal + lrCorner + "\n");
+                }
+
             }
 
         }

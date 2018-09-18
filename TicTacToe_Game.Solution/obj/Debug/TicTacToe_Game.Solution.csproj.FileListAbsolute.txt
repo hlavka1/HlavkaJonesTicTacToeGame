@@ -38,3 +38,4 @@ E:\TTT repo\TicTacToe_Game.Solution\bin\Debug\CodingActivity_TicTacToe_ConsoleGa
 E:\TTT repo\TicTacToe_Game.Solution\obj\Debug\TicTacToe_Game.Solution.csproj.CoreCompileInputs.cache
 E:\TTT repo\TicTacToe_Game.Solution\obj\Debug\CodingActivity_TicTacToe_ConsoleGame.exe
 E:\TTT repo\TicTacToe_Game.Solution\obj\Debug\CodingActivity_TicTacToe_ConsoleGame.pdb
+E:\TTT repo\TicTacToe_Game.Solution\obj\Debug\TicTacToe_Game.Solution.csprojResolveAssemblyReference.cache

@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\TicTacToe_Game.Solution"
+    "\\TicTacToe_Game.Solution",
+    "\\TicTacToe_Game.Solution\\View"
   ],
-  "SelectedNode": "\\TicTacToe_Game.Solution\\TicTacToe_Game.Solution.sln",
+  "SelectedNode": "\\TicTacToe_Game.Solution.sln",
   "PreviewInSolutionExplorer": false
 }
