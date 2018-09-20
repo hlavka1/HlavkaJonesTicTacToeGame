@@ -11,9 +11,9 @@ namespace TicTacToe_Game
         None,
         PlayNewRound,
         ViewCurrentGameResults,
-        ViewPastGameResultsScores,
+        //ViewPastGameResultsScores,
         ViewGameRules,
-        SaveGameResults,
+       // SaveGameResults,
         Quit
     }
 }

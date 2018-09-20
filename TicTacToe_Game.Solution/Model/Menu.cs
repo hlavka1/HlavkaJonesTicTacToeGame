@@ -28,8 +28,8 @@ namespace TicTacToe_Game
                     { 'N', MenuOption.PlayNewRound },
                     { 'R', MenuOption.ViewGameRules },
                     { 'C', MenuOption.ViewCurrentGameResults },
-                    { 'P', MenuOption.ViewPastGameResultsScores },
-                    { 'S', MenuOption.SaveGameResults },
+                   // { 'P', MenuOption.ViewPastGameResultsScores },
+                   // { 'S', MenuOption.SaveGameResults },
                     { 'Q', MenuOption.Quit }
                 };
         }

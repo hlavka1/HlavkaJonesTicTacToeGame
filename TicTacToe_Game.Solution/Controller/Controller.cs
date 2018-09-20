@@ -142,12 +142,12 @@ namespace TicTacToe_Game
                         case MenuOption.ViewCurrentGameResults:
                             _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
                             break;
-                        case MenuOption.ViewPastGameResultsScores:
-                            _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
-                            break;
-                        case MenuOption.SaveGameResults:
-                            _gameView.DisplaySaveGameScreen();
-                            break;
+                        //case MenuOption.ViewPastGameResultsScores:
+                        //    _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                        //    break;
+                        //case MenuOption.SaveGameResults:
+                        //    _gameView.DisplaySaveGameScreen();
+                        //    break;
                         case MenuOption.Quit:
                             _playingGame = false;
                             break;                        
