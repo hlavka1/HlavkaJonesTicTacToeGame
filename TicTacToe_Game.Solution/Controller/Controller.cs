@@ -48,8 +48,6 @@ namespace TicTacToe_Game
         {
             ManageApplicationLoop();
             InitializeGame();
-
-            //PlayGame();
         }
         
         #endregion
@@ -75,6 +73,22 @@ namespace TicTacToe_Game
             // Initialize game board status
             //
             _gameboard.InitializeGameboard();
+
+            //
+            // add the event handler for a user choosing to quit during a game
+            //
+            _gameView.UserQuit += HandleUserQuit;
+        }
+
+         /// <summary>
+        /// method called by the UserQuit event 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="e"></param>
+        private void HandleUserQuit(object o, EventArgs e)
+        {
+            _playingGame = false;
+            QuitGame();
         }
 
         /// <summary>
@@ -154,18 +168,6 @@ namespace TicTacToe_Game
         /// </summary>
         public void PlayGame()
         {
-
-            //while (_playingGame)
-            //{
-
-            //    //
-            //    // player chooses to quit
-            //    //
-            //    if (!_playingGame)
-            //    {
-            //        QuitGame();
-            //    }
-
             //
             // initialize gameboard 
             //
@@ -225,9 +227,6 @@ namespace TicTacToe_Game
                     _playingRound = false;
 
                 }
-            //}
-
-            //QuitGame();
         }
 
         /// <summary>
@@ -280,7 +279,6 @@ namespace TicTacToe_Game
                             _roundNumber++;
 
                             SetPlayerOne();
-                           // _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
                             break;
 
                         case Gameboard.GameboardState.PlayerXTurn:
@@ -384,7 +382,7 @@ namespace TicTacToe_Game
         {
             MenuOption playerMenuChoice = MenuOption.None;
 
-            playerMenuChoice = _gameView.GetMenuChoice(gameMenu);// _gameView.DisplayMenu(gameMenu);
+            playerMenuChoice = _gameView.GetMenuChoice(gameMenu);
 
             return playerMenuChoice;
         }

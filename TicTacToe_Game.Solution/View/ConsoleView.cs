@@ -17,6 +17,7 @@ namespace TicTacToe_Game
         /// </summary>
         public void DisplayExitScreen()
         {
+            ConsoleUtil.HeaderText = "Quit Game";
             ConsoleUtil.DisplayReset();
 
             Console.CursorVisible = false;
@@ -75,7 +76,18 @@ namespace TicTacToe_Game
 
         #endregion
 
+        #region EVENT HANDLERS
+
+        /// <summary>
+        /// an event for when the user chooses to quit during a game
+        /// </summary>
+        public event EventHandler UserQuit;
+
+        #endregion EVENT HANDLERS
+
         #region METHODS
+    
+         public void OnUserQuit() => UserQuit?.Invoke(this, EventArgs.Empty);
 
         /// <summary>
         /// Initialize the console view
@@ -108,7 +120,6 @@ namespace TicTacToe_Game
             foreach (KeyValuePair<char, string> menuChoice in menu)
             {
                 string formattedMenuChoice = ConsoleUtil.ToLabelFormat(menuChoice.Value.ToString()) + "\n";
-                //  Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
                 Console.Write($"{menuChoice.Key}. {formattedMenuChoice}");
             }
             ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
@@ -142,9 +153,7 @@ namespace TicTacToe_Game
         public bool DisplayContinuePrompt(bool allowQuit)
         {
             bool userChoice = true;
-
-            //Console.CursorVisible = false;
-
+       
             Console.WriteLine();
 
             ConsoleUtil.DisplayMessage("Press any key to continue.");
@@ -163,23 +172,6 @@ namespace TicTacToe_Game
             Console.CursorVisible = true;
 
             return userChoice;
-        }
-
-        /// <summary>
-        /// display the Exit prompt on a clean screen
-        /// </summary>
-        public void DisplayExitPrompt()
-        {
-            ConsoleUtil.DisplayReset();
-
-            Console.CursorVisible = false;
-
-            Console.WriteLine();
-            ConsoleUtil.DisplayMessage("We hope you had fun playing on our 4x4 Tic Tac Toe. Press any key to Exit.");
-
-            Console.ReadKey();
-
-            System.Environment.Exit(1);
         }
 
         /// <summary>
@@ -213,8 +205,6 @@ namespace TicTacToe_Game
 
             DisplayContinuePrompt(false);
         }
-
-
 
         /// <summary>
         /// Inform the player that their position choice is not available
@@ -276,6 +266,9 @@ namespace TicTacToe_Game
             DisplayContinuePrompt(false);
         }
 
+        /// <summary>
+        /// display the game board
+        /// </summary>
         public void DisplayGameArea()
         {
             ConsoleUtil.HeaderText = "Current Game Board";
@@ -284,7 +277,14 @@ namespace TicTacToe_Game
             DisplayGameboard();
             DisplayGameStatus();
         }
-
+    
+        /// <summary>
+        /// display the statistics for the current round
+        /// </summary>
+        /// <param name="roundsPlayed"></param>
+        /// <param name="playerXWins"></param>
+        /// <param name="playerOWins"></param>
+        /// <param name="catsGames"></param>
         public void DisplayCurrentGameStatus(int roundsPlayed, int playerXWins, int playerOWins, int catsGames)
         {
             ConsoleUtil.HeaderText = "Current Game Status";
@@ -305,6 +305,10 @@ namespace TicTacToe_Game
             Console.Clear();
         }
 
+        /// <summary>
+        /// prompt the user to play another round
+        /// </summary>
+        /// <returns>bool</returns>
         public bool DisplayNewRoundPrompt()
         {
             ConsoleUtil.HeaderText = "Continue or Quit";
@@ -313,6 +317,9 @@ namespace TicTacToe_Game
             return DisplayGetYesNoPrompt("Would you like to play another round?");
         }
 
+        /// <summary>
+        /// display the current status of the game
+        /// </summary>
         public void DisplayGameStatus()
         {
             StringBuilder sb = new StringBuilder();
@@ -356,6 +363,10 @@ namespace TicTacToe_Game
             }
         }
 
+        /// <summary>
+        /// display a message on the console screen
+        /// </summary>
+        /// <param name="message"></param>
         public void DisplayMessageBox(string message)
         {
             string leftMargin = new String(' ', ConsoleConfig.displayHorizontalMargin);
@@ -465,7 +476,7 @@ namespace TicTacToe_Game
             {
                 ConsoleUtil.DisplayReset();
 
-                ConsoleUtil.DisplayPromptMessage(promptMessage + " (Please type Yes or No)");
+                ConsoleUtil.DisplayPromptMessage(promptMessage + "(Please type Yes or No)");
                 userResponse = Console.ReadLine();
 
                 if (userResponse.ToUpper() == "YES")
@@ -506,7 +517,7 @@ namespace TicTacToe_Game
             //
             // Get row number from player.
             //
-            gameboardPosition.Row = PlayerCoordinateChoice("Hortizontal row");
+            gameboardPosition.Row = PlayerCoordinateChoice("Horizontal Row");
 
             //
             // Get column number.
@@ -517,14 +528,13 @@ namespace TicTacToe_Game
             }
 
             return gameboardPosition;
-
         }
 
         /// <summary>
         /// Validate the player's coordinate response for integer and range
         /// </summary>
         /// <param name="coordinateType">an integer value within proper range or -1</param>
-        /// <returns></returns>
+        /// <returns>int</returns>
         private int PlayerCoordinateChoice(string coordinateType)
         {
             int tempCoordinate = -1;
@@ -534,8 +544,8 @@ namespace TicTacToe_Game
             while ((numOfPlayerAttempts <= maxNumOfPlayerAttempts))
             {
                 DisplayPositionPrompt(coordinateType);
-
-                if (int.TryParse(Console.ReadLine(), out tempCoordinate))
+                string userInput = Console.ReadLine().ToString().ToUpper();
+                if (int.TryParse(userInput, out tempCoordinate))
                 {
                     //
                     // Player response within range
@@ -557,7 +567,14 @@ namespace TicTacToe_Game
                 //
                 else
                 {
-                    DisplayMessageBox(coordinateType + " numbers are limited to (1,2,3,4), sorry");
+                    if (userInput == "Q")
+                    {
+                        OnUserQuit();
+                    }
+                    else
+                    {
+                        DisplayMessageBox(coordinateType + " numbers are limited to (1,2,3,4), sorry");
+                    }
                 }
 
                 //
@@ -614,10 +631,13 @@ namespace TicTacToe_Game
             chooseOption = menu.MenuChoices[keyPressed];
             Console.CursorVisible = true;
 
-
             return chooseOption;
         }
 
+        /// <summary>
+        /// display the main menu
+        /// </summary>
+        /// <param name="menu"></param>
         public void DisplayMenu(Menu menu)
         {
             Console.Clear(); 
@@ -642,9 +662,6 @@ namespace TicTacToe_Game
                 }
             }
             Console.WriteLine();
-            //chooseOption = GetMenuChoice(menu);
-
-            //return chooseOption;
         }
 
         /// <summary>
