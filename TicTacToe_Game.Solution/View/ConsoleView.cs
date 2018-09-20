@@ -205,9 +205,9 @@ namespace TicTacToe_Game
             ConsoleUtil.HeaderText = "Maximum Attempts Reached!";
             ConsoleUtil.DisplayReset();
 
-            sb.Append(" It appears that you are having difficulty entering your choice");
-            sb.Append(" Really?!  Tic Tac Toe isn't this hard!   Try again.");
-            sb.Append("Please refer to the instructions and play.");
+            sb.Append(" It appears that you are having difficulty entering your choice.");
+            sb.Append(" Really?!  Tic Tac Toe isn't this hard!");
+            sb.Append(" Please refer to the instructions and play again if you'd like.");
 
             DisplayMessageBox(sb.ToString());
 
@@ -465,7 +465,7 @@ namespace TicTacToe_Game
             {
                 ConsoleUtil.DisplayReset();
 
-                ConsoleUtil.DisplayPromptMessage(promptMessage + "(yes/no)");
+                ConsoleUtil.DisplayPromptMessage(promptMessage + " (Please type Yes or No)");
                 userResponse = Console.ReadLine();
 
                 if (userResponse.ToUpper() == "YES")
@@ -506,14 +506,14 @@ namespace TicTacToe_Game
             //
             // Get row number from player.
             //
-            gameboardPosition.Row = PlayerCoordinateChoice("Row");
+            gameboardPosition.Row = PlayerCoordinateChoice("Hortizontal row");
 
             //
             // Get column number.
             //
             if (CurrentViewState != ViewState.PlayerUsedMaxAttempts)
             {
-                gameboardPosition.Column = PlayerCoordinateChoice("Column");
+                gameboardPosition.Column = PlayerCoordinateChoice("Vertical Column");
             }
 
             return gameboardPosition;
@@ -549,7 +549,7 @@ namespace TicTacToe_Game
                     //
                     else
                     {
-                        DisplayMessageBox(coordinateType + " numbers are limited to (1,2,3,4)");
+                        DisplayMessageBox(coordinateType + " numbers are limited to (1,2,3,4), sorry");
                     }
                 }
                 //
