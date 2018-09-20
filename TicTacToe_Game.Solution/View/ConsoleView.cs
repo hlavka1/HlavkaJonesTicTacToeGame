@@ -17,6 +17,7 @@ namespace TicTacToe_Game
         /// </summary>
         public void DisplayExitScreen()
         {
+            Console.Clear();
             ConsoleUtil.HeaderText = "Quit Game";
             ConsoleUtil.DisplayReset();
 
@@ -33,7 +34,8 @@ namespace TicTacToe_Game
         {
             Active,
             PlayerTimedOut, // TODO Track player time on task
-            PlayerUsedMaxAttempts
+            PlayerUsedMaxAttempts,
+            PlayerQuit
         }
 
         #endregion
@@ -517,8 +519,10 @@ namespace TicTacToe_Game
             //
             // Get row number from player.
             //
-            gameboardPosition.Row = PlayerCoordinateChoice("Horizontal Row");
-
+            if (CurrentViewState != ViewState.PlayerUsedMaxAttempts)
+            {
+                 gameboardPosition.Row = PlayerCoordinateChoice("Horizontal Row");
+            }
             //
             // Get column number.
             //
@@ -541,7 +545,7 @@ namespace TicTacToe_Game
             int numOfPlayerAttempts = 1;
             int maxNumOfPlayerAttempts = 4;
 
-            while ((numOfPlayerAttempts <= maxNumOfPlayerAttempts))
+            while ((numOfPlayerAttempts <= maxNumOfPlayerAttempts && CurrentViewState == ViewState.Active))
             {
                 DisplayPositionPrompt(coordinateType);
                 string userInput = Console.ReadLine().ToString().ToUpper();
@@ -550,7 +554,7 @@ namespace TicTacToe_Game
                     //
                     // Player response within range
                     //
-                    if (tempCoordinate >= 1 && tempCoordinate <= _gameboard.MaxNumOfRowsColumns)
+                    if (tempCoordinate >= 1 && tempCoordinate <= _gameboard.MaxNumOfRowsColumns && CurrentViewState == ViewState.Active)
                     {
                         return tempCoordinate;
                     }
@@ -559,7 +563,10 @@ namespace TicTacToe_Game
                     //
                     else
                     {
-                        DisplayMessageBox(coordinateType + " numbers are limited to (1,2,3,4), sorry");
+                        if (CurrentViewState == ViewState.Active)
+                        {
+                            DisplayMessageBox(coordinateType + " numbers are limited to (1,2,3,4), sorry");
+                        }
                     }
                 }
                 //
@@ -569,6 +576,7 @@ namespace TicTacToe_Game
                 {
                     if (userInput == "Q")
                     {
+                        CurrentViewState = ViewState.PlayerQuit;
                         OnUserQuit();
                     }
                     else
@@ -586,7 +594,9 @@ namespace TicTacToe_Game
             //
             // Player used maximum number of attempts, set view state and return
             //
-            CurrentViewState = ViewState.PlayerUsedMaxAttempts;
+
+            CurrentViewState = (CurrentViewState == ViewState.PlayerQuit) ? ViewState.PlayerQuit: ViewState.PlayerUsedMaxAttempts;
+       
             return tempCoordinate;
         }
 

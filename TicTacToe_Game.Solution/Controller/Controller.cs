@@ -46,8 +46,8 @@ namespace TicTacToe_Game
 
         public GameController()
         {
-            ManageApplicationLoop();
             InitializeGame();
+            ManageApplicationLoop();
         }
         
         #endregion
@@ -195,13 +195,16 @@ namespace TicTacToe_Game
                 //
                 // Round Complete: Display the results
                 //
-                _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
-
+                if (_gameView.CurrentViewState != ConsoleView.ViewState.PlayerQuit)
+                {
+                     _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                }
                 //
                 // Confirm no major user errors
                 //
-                if (_gameView.CurrentViewState != ConsoleView.ViewState.PlayerUsedMaxAttempts ||
-                    _gameView.CurrentViewState != ConsoleView.ViewState.PlayerTimedOut)
+                if (_gameView.CurrentViewState != ConsoleView.ViewState.PlayerUsedMaxAttempts &&
+                    _gameView.CurrentViewState != ConsoleView.ViewState.PlayerTimedOut &&
+                    _gameView.CurrentViewState != ConsoleView.ViewState.PlayerQuit)
                 {
                     //
                     // Prompt user to play another round
@@ -317,6 +320,10 @@ namespace TicTacToe_Game
                     _playingRound = false;
                     _playingGame = false;
                     break;
+                case ConsoleView.ViewState.PlayerQuit:
+                    _playingRound = false;
+                    _playingGame = false;
+                    break;
                 default:
                     break;
             }
@@ -331,23 +338,26 @@ namespace TicTacToe_Game
         /// <param name="currentPlayerPiece">identify as either the X or O player</param>
         private void ManagePlayerTurn(Gameboard.PlayerPiece currentPlayerPiece)
         {
+            if(_gameView.CurrentViewState != ConsoleView.ViewState.PlayerQuit)
+            {
             GameboardPosition gameboardPosition = _gameView.GetPlayerPositionChoice();
 
-            if (_gameView.CurrentViewState != ConsoleView.ViewState.PlayerUsedMaxAttempts)
-            {
-                //
-                // player chose an open position on the game board, add it to the game board
-                //
-                if (_gameboard.GameboardPositionAvailable(gameboardPosition))
+                if (_gameView.CurrentViewState == ConsoleView.ViewState.Active)
                 {
-                    _gameboard.SetPlayerPiece(gameboardPosition, currentPlayerPiece);
-                }
-                //
-                // player chose a taken position on the game board
-                //
-                else
-                {
-                    _gameView.DisplayGamePositionChoiceNotAvailableScreen();
+                    //
+                    // player chose an open position on the game board, add it to the game board
+                    //
+                    if (_gameboard.GameboardPositionAvailable(gameboardPosition))
+                    {
+                        _gameboard.SetPlayerPiece(gameboardPosition, currentPlayerPiece);
+                    }
+                    //
+                    // player chose a taken position on the game board
+                    //
+                    else
+                    {
+                        _gameView.DisplayGamePositionChoiceNotAvailableScreen();
+                    }
                 }
             }
         }
