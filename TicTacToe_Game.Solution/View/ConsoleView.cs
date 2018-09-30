@@ -655,7 +655,7 @@ namespace TicTacToe_Game
             //MenuOption chooseOption = MenuOption.None;
 
             ConsoleUtil.HeaderText = "The Tic-tac-toe Main Menu";
-
+            ConsoleUtil.DisplayReset();
             Console.SetCursorPosition(0, MESSAGEBOX_VERTICAL_LOCATION);
 
             //
@@ -667,7 +667,7 @@ namespace TicTacToe_Game
                 if (menuChoice.Value != MenuOption.None)
                 {
                     string formatedMenuChoice = ConsoleUtil.ToLabelFormat(menuChoice.Value.ToString());
-                    Console.SetCursorPosition(MESSAGEBOX_VERTICAL_LOCATION + 3, topRow++);
+                    Console.SetCursorPosition(MESSAGEBOX_VERTICAL_LOCATION + 3, 1 + topRow++);
                     Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
                 }
             }

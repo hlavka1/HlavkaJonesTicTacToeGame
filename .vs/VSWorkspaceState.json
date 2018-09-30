@@ -2,8 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\TicTacToe_Game.Solution",
+    "\\TicTacToe_Game.Solution\\Controller",
+    "\\TicTacToe_Game.Solution\\Model",
+    "\\TicTacToe_Game.Solution\\Properties",
+    "\\TicTacToe_Game.Solution\\Utilities",
     "\\TicTacToe_Game.Solution\\View"
   ],
-  "SelectedNode": "\\TicTacToe_Game.Solution.sln",
+  "SelectedNode": "\\TicTacToe_Game.Solution\\Model\\Gameboard.cs",
   "PreviewInSolutionExplorer": false
 }
